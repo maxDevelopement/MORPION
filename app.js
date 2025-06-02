@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors')
 const port = 3006
 const path = require('path')
-const initDb = require('./db/initDb')
+//const initDb = require('./db/initDb')
 
 // middlesWare
 app.use(cors())
