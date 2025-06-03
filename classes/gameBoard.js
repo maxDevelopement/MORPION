@@ -31,5 +31,21 @@ class GameBoard{
             client.ws.send(givenResonse);
         })
     }
+    isTheGameFinished = () => {
+        const isFinished = this.gameBoardId.map((gameCase) => {
+            
+        })
+        return isFinished
+    }
+    areHorizontalLinesCompletedByUser(horizontalLineIndex){
+        const searchedHorizontalLine = this.GameBoardArray.filter((gameCase) => {
+            if(gameCase.x === horizontalLineIndex) return gameCase
+        })
+        return searchedHorizontalLine
+    }
+    getColorOfSpecifiedCase = (x, y) => {
+        const searchedCase = this.GameBoardArray.find((gameCase) => gameCase.x === x && gameCase.y === y)
+        return searchedCase.player
+    }
 }
 module.exports = GameBoard
