@@ -1,10 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <script src="./script.js" type="module"></script>
-</head>
-<body>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-</body>
-</html>
+        <meta charset="utf-8">
+        <title>MORP.IO</title>
+        <link rel="stylesheet" href="./styles/styles_light.css" />
+    </head>
+    <body>
+        <div class="universe">
+            <div class="header">
+                <div class="input_container">
+                    <input type="text" class="header_input" placeholder="   custom name" />
+                    <button class="header_buttons" id="set_custom_name">&#10003;</button>
+                </div>
+                <div class="turn_container">
+                    <p>
+                        Turn number :
+                    </p>
+                    <input type="number" class="turn_counter" id="turn_counter" disabled>
+                </div>
+                <div class="title_container">
+                    
+                    <p>"MORP.IO"</p>
+                </div>
+                <div class="menu_container">
+                    <button class="header_buttons" id="create_clicked">Create Game</button>
+                    <button class="header_buttons" id="join_clicked">Join Game</button>
+                    <button class="header_buttons" id="local_game_clicked">Local Game</button>
+                </div>
+            </div>
+            <div class="left_container">
+                
+            </div>
+            <div class="gamebox">
+                <div class="gameboard" id="gameboard">
+
+                </div>
+                <div class="bottom_menu_container">
+                    <button class="menu_buttons play_move" id="play_move">PLACE</button>
+                    <button class="menu_buttons rematch_press" id="rematch">REMATCH</button>
+
+                </div>
+            </div>
+        </div>
+        <!--<script type="module" src="./scripts/morpion_classes.js"></script>-->
+        <script type="module" src="./scripts/morpion_main.js"></script>
+        <script type="module" src="./scripts/script_request_io.js"></script>
+    </body>
+</html> 
