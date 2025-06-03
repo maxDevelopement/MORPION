@@ -1,0 +1,77 @@
+----------------------------------------------------------
+-------- envoi récéption pour gestion de partie ----------
+----------------------------------------------------------
+{
+    state: 'create_game',
+    status: 'started',
+    gameBoardId: 9873450,
+    turn: 123123,
+    gameArray: [
+        { x: 0, y: 0, player: "O" },
+        { x: 0, y: 1, player: "X" },
+        { x: 0, y: 2, player: "empty" },
+        { x: 1, y: 0, player: "O" },
+        { x: 1, y: 1, player: "X" },
+        { x: 1, y: 2, player: "empty" },
+        { x: 2, y: 0, player: "O" },
+        { x: 2, y: 1, player: "X" },
+        { x: 2, y: 2, player: "empty" },
+    ]
+    connectedUser: [
+        { idUser: 123123, userColor: "X" },
+        { idUser: 123123, userColor: "O" }
+    ]
+}
+---------------------------------------------------------------------------------
+--- données à envoyer au srv pour "authentification" (création de login) ---------
+----------------------------------------------------------------------------------
+{
+    idUser: exempleLogin
+}
+---------------------------------------------------------------------------------
+--- message de retour du srv pour "authentification" (création de login) ---------
+----------------------------------------------------------------------------------
+reponse possible 1 : 
+{
+    status: 200,
+    idUser: 2134234Turbo-Witch
+}
+{
+    status: 400 | 500,
+    msg: "erreur dans les données blablbla"
+}
+
+----------------------------------------------------------------------------------
+-------------------- données à envoyer au srv pour "créer partie" ----------------
+---------------- données à envoyer au srv pour "Rejoindre partie" ----------------
+----------------------------------------------------------------------------------
+{
+   idUser: 2134234Turbo-Witch 
+}
+----------------------------------------------------------------------------------
+-------------------- message de retour du srv pour "créer partie" ----------------
+---------------- message de retour du srv pour "Rejoindre partie" ----------------
+----------------------------------------------------------------------------------
+{
+    status: 200,
+    gameBoard: {
+        gameBoardId: 9873450,
+        turn: 123123,
+        gameArray: [
+            { x: 0, y: 0, player: "O" },
+            { x: 0, y: 1, player: "X" },
+            { x: 0, y: 2, player: "empty" },
+            { x: 1, y: 0, player: "O" },
+            { x: 1, y: 1, player: "X" },
+            { x: 1, y: 2, player: "empty" },
+            { x: 2, y: 0, player: "O" },
+            { x: 2, y: 1, player: "X" },
+            { x: 2, y: 2, player: "empty" },
+        ]
+        connectedUser: [123123]
+    }
+}
+{
+    status: 400 | 500,
+    msg: "erreur dans les données blablbla"
+}
