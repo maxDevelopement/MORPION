@@ -11,18 +11,19 @@ const wss = new WebSocket.Server({ port: 3017 }, () => {
 
 wss.on('connection', (ws, req) => {
    ws.clientIP = req.socket.remoteAddress;
-  console.log(`Nouvelle connexion de ${ws.clientIP}`);
-  // Première connexion => renvoi du idUser
-  ws.send(JSON.stringify({
-    idUser: ws.clientIP
-  }));
+    console.log(`Nouvelle connexion de ${ws.clientIP}`);
+    // Première connexion => renvoi du idUser
+    ws.send(JSON.stringify({
+      state: 'new_connection',
+      idUser: ws.clientIP
+    }));
 
   ws.on('message', (message) => {
     try{
         const stringifiedMsg = message.toString();
         const formatedData = JSON.parse(stringifiedMsg)    
         //console.log('type :: ', typeof formatedData)
-        //console.log('message :: ', formatedData)
+        console.log('ws :: ', ws)
         switch(formatedData.state){
             case 'create_game': {
                 console.log("case create_game")
@@ -30,7 +31,7 @@ wss.on('connection', (ws, req) => {
                 break
             } 
             case 'join_game': {
-                handleJoinGame(formatedData.gameBoardId, ws.clientIP)
+                handleJoinGame(formatedData.gameBoardId, ws.clientIP, ws)
                 break
             } 
             case 'updateGame': {
@@ -61,17 +62,26 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-const handleCreateNewGame = (ws) => {
-    const newGame = new GameBoard(ws.clientIP, ws)
-    const formatedResponse = formatResponseForClient(200, newGame)
-    newGame.respondeToAllPLayers(formatedResponse)
-    allGameBoards.push(newGame)
+function handleCreateNewGame(ws){
+    console.log("handleCreateNewGame")
+    
+      const newGame = new GameBoard(ws)
+      console.log(" newGame : ", newGame)   
+      const gameToReturn = newGame.withoutWs()
+      console.log("gameToReturn : ", gameToReturn)
+    //try{  
+      const formatedResponse = formatResponseForClient('create_game', gameToReturn)
+      newGame.respondeToAllPLayers(formatedResponse)
+      allGameBoards.push(newGame)     
+    /*}catch(erreur){
+        console.log("ERREUR ::: ", erreur)
+    }*/
 }
-const handleJoinGame = (gameBoardId, clientIP) => {
+const handleJoinGame = (gameBoardId, clientIP, clientWs) => {
     const foundedGame = allGameBoards.find((game) => game.gameBoardId === gameBoardId)
     if(!foundedGame) throw new Error()
     foundedGame.players.push(clientIP)
-    respondeToAllPLayers(gameBoardData)
+    foundedGame.respondeToAllPLayers(gameBoardData)
 }
 const handleQuitGame = (playerId) => {
 
@@ -79,9 +89,6 @@ const handleQuitGame = (playerId) => {
 const handleUpdateGame = (gameBoardData) => {
     respondeToAllPLayers(gameBoardData)
 }
-const formatResponseForClient = (status, givenGameBoard) => {
-    if(status)
-    return JSON.stringify({
-        gameBoard: JSON.stringify({ GameBoard:  givenGameBoard})
-    })
+const formatResponseForClient = (state, givenGameBoard) => {
+    return JSON.stringify({ state: state, GameBoard:  givenGameBoard})
 }

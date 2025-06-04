@@ -1,10 +1,12 @@
+const WebSocket = require('ws');
 class GameBoard{
-    constructor(idUserCreator, userWs){
+    constructor(userWs){
         this.status = 'started'; 
         this.gameBoardId = this.setGameBoardId();
-        this.turn = [idUserCreator];
+        this.turn = [userWs.clientIP];
+        this.turnNumber= 1
         this.players = [{
-                idUser: idUserCreator,
+                idUser: userWs.clientIP,
                 ws: userWs 
             }
         ];
@@ -26,10 +28,16 @@ class GameBoard{
         return randomisedTimeStamp
     }
     respondeToAllPLayers = (givenResonse) => {
-        this.players.forEach((player) => {
-            if (player.ws.readyState !== WebSocket.OPEN) throw new Error();
-            client.ws.send(givenResonse);
-        })
+        console.log("respondeToAllPLayers ::: ", givenResonse)
+        try{
+            this.players.forEach((player) => {
+                if (player.ws.readyState !== WebSocket.OPEN) throw new Error();
+                player.ws.send(givenResonse);
+            })
+        }catch(error){
+            console.log("ERREURRR ::: ", error)
+        }
+        
     }
     isTheGameFinished = () => {
         const isFinished = this.gameBoardId.map((gameCase) => {
@@ -46,6 +54,15 @@ class GameBoard{
     getColorOfSpecifiedCase = (x, y) => {
         const searchedCase = this.GameBoardArray.find((gameCase) => gameCase.x === x && gameCase.y === y)
         return searchedCase.player
+    }
+    withoutWs = () => {
+        return {
+            status: this.status,
+            gameBoardId: this.gameBoardId,
+            turn: this.turn,
+            turnNumber: this.turnNumber,
+            GameBoardArray: this.GameBoardArray
+        }
     }
 }
 module.exports = GameBoard

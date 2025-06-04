@@ -1,7 +1,16 @@
+
 ----------------------------------------------------------
 -------- serveur doit recevoir ceci du client lorsqu'il fait une requete avec un state 'create_game' ----------
 ----------------------------------------------------------
 { state: 'create_game }
+
+----------------------------------------------------------
+---------rejoindre partie en cours avec gameBoardId-------
+----------------------------------------------------------
+{
+    state: 'join_game',
+    gameBoardId: '123123123'
+}
 
 ----------------------------------------------------------
 -------- serveur doit recevoir ceci du client lorsqu'il fait une requete avec un state 'update_game' ----------
@@ -40,7 +49,6 @@
     status: 'started' | 'finished',
     winner: null | 123123
     turn: null | 123123,
-    turnNumber: 4,
     gameArray: [
         { x: 0, y: 0, player: "O" },
         { x: 0, y: 1, player: "X" },
@@ -57,7 +65,24 @@
         { idUser: 123123, userColor: "O" }
     ]
 }
-
+---------------------------------------------------------------------------------
+--- données à envoyer au srv pour "authentification" (création de login) ---------
+----------------------------------------------------------------------------------
+{
+    idUser: exempleLogin
+}
+---------------------------------------------------------------------------------
+--- message de retour du srv pour "authentification" (création de login) ---------
+----------------------------------------------------------------------------------
+reponse possible 1 : 
+{
+    status: 200,
+    idUser: 2134234Turbo-Witch
+}
+{
+    status: 400 | 500,
+    msg: "erreur dans les données blablbla"
+}
 
 ----------------------------------------------------------------------------------
 -------------------- données à envoyer au srv pour "créer partie" ----------------
