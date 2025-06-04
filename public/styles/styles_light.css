@@ -53,9 +53,19 @@ p {
     justify-content: space-evenly;
 }
 
+.turn_container {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .turn_counter {
-    height: 35px;
+    color: black;
+    height: 25px;
     width: 55px;
+    font-size:large;
 }
 
 .gamebox{
