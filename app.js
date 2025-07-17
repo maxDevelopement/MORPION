@@ -19,8 +19,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// endpoint
-
 // erreur 404
 app.use(({res}) => {
     const message = 'Erreur 404'
