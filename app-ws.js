@@ -6,7 +6,7 @@ const allGameBoards = [];
 
 // Création du serveur WebSocket sur le port 3017
 const wss = new WebSocket.Server({ port: 3017 }, () => {
-  console.log('Serveur WebSocket lancé sur ws://localhost:8080');
+  console.log('Serveur WebSocket lancé sur ws://localhost:3017');
 });
 
 wss.on('connection', (ws, req) => {
@@ -31,16 +31,19 @@ wss.on('connection', (ws, req) => {
                 break
             } 
             case 'join_game': {
+                console.log("case join_game")
                 handleJoinGame(formatedData.gameBoardId, ws.clientIP, ws)
                 break
             } 
             case 'updateGame': {
+                console.log("case update_game")
                 handleUpdateGame(formatedData.gameBoard)
                 break
             } 
         }
     }catch(error){
-
+        const response = formatResponseForClient('error', null)
+        ws.send(response)
     }
 
     // Réponse : on renvoie à tous les clients connectés
