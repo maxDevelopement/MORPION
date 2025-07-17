@@ -9,6 +9,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('local_game_clicked') ;
     addEventListener('click', () => {
     })
-
 })
 
